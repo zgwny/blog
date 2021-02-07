@@ -1,0 +1,95 @@
+/*==============================================================*/
+/* Table: ums_admin                                             */
+/*==============================================================*/
+create table ums_admin
+(
+   id                   bigint not null auto_increment,
+   username             varchar(64) comment '用户名',
+   password             varchar(64) comment '密码',
+   icon                 varchar(500) comment '头像',
+   email                varchar(100) comment '邮箱',
+   nick_name            varchar(200) comment '昵称',
+   note                 varchar(500) comment '备注信息',
+   create_time          datetime comment '创建时间',
+   login_time           datetime comment '最后登录时间',
+   status               int(1) default 1 comment '帐号启用状态：0->禁用；1->启用',
+   primary key (id)
+);
+
+alter table ums_admin comment '后台用户表';
+
+/*==============================================================*/
+/* Table: ums_role                                              */
+/*==============================================================*/
+create table ums_role
+(
+   id                   bigint not null auto_increment,
+   name                 varchar(100) comment '名称',
+   description          varchar(500) comment '描述',
+   admin_count          int comment '后台用户数量',
+   create_time          datetime comment '创建时间',
+   status               int(1) default 1 comment '启用状态：0->禁用；1->启用',
+   sort                 int default 0,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: ums_permission                                        */
+/*==============================================================*/
+create table ums_permission
+(
+   id                   bigint not null auto_increment,
+   pid                  bigint comment '父级权限id',
+   name                 varchar(100) comment '名称',
+   value                varchar(200) comment '权限值',
+   icon                 varchar(500) comment '图标',
+   type                 int(1) comment '权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）',
+   uri                  varchar(200) comment '前端资源路径',
+   status               int(1) comment '启用状态；0->禁用；1->启用',
+   create_time          datetime comment '创建时间',
+   sort                 int comment '排序',
+   primary key (id)
+);
+
+alter table ums_permission comment '后台用户权限表';
+
+
+/*==============================================================*/
+/* Table: ums_admin_role_relation                               */
+/*==============================================================*/
+create table ums_admin_role_relation
+(
+   id                   bigint not null auto_increment,
+   admin_id             bigint,
+   role_id              bigint,
+   primary key (id)
+);
+
+alter table ums_admin_role_relation comment '后台用户和角色关系表';
+
+/*==============================================================*/
+/* Table: ums_role_permission_relation                          */
+/*==============================================================*/
+create table ums_role_permission_relation
+(
+   id                   bigint not null auto_increment,
+   role_id              bigint,
+   permission_id        bigint,
+   primary key (id)
+);
+
+alter table ums_role_permission_relation comment '后台用户角色和权限关系表';
+
+/*==============================================================*/
+/* Table: ums_admin_permission_relation                         */
+/*==============================================================*/
+create table ums_admin_permission_relation
+(
+   id                   bigint not null auto_increment,
+   admin_id             bigint,
+   permission_id        bigint,
+   type                 int(1),
+   primary key (id)
+);
+
+alter table ums_admin_permission_relation comment '后台用户和权限关系表(除角色中定义的权限以外的加减权限)';

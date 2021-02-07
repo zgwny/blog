@@ -196,7 +196,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zwy.blog.mbg.model.BlUserExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.zwy.blog.mbg.model.BlUserExample" resultType="java.lang.Long">
     select count(*) from bl_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

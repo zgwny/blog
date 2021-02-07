@@ -19,20 +19,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 用户管理Controller
+ * 博客管理Controller
  */
-@Api(tags = "BlUserController", description = "用户管理")
+@Api(tags = "BlBlogController", description = "博客管理")
 @RestController
-@RequestMapping("/api/user")
-public class BlUserController {
-
+@RequestMapping("/api/blog")
+public class BlBlogController {
+	
 	@Autowired
 	private BlUserService service;
 
-	@ApiOperation("分页查询用户列表")
+	@ApiOperation("分页查询博客")
 	@RequestMapping(value = "listAll", method = RequestMethod.GET)
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('pms:user:read')")
+	@PreAuthorize("hasAuthority('pms:brand:read')")
 	public CommonResult<CommonPage<BlUser>> listBrand(
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
